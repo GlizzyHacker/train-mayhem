@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Level width="16" height="9" name="2">
+  <Entrance x="0" y="4">
+    <Train time="4" color="RED" segments="3" />
+    <Train time="8" color="GREEN" segments="3" />
+  </Entrance>
+  <Exit x="15" y="4" />
+  <Junction x="14" y="3" height="3" />
+  <Platform x="11" y="3" color="RED" width="3" />
+  <Platform x="11" y="5" color="GREEN" width="3" />
+  <Track x="11" y="4" width="3" />
+  <Switch x="10" y="3" height="3" exit="1" />
+  <Track x="1" y="4" width="5" />
+  <Track x="6" y="4" width="4" />
+</Level>

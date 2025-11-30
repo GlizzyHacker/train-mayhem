@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Level width="16" height="9" name="4">
+  <Entrance x="0" y="3">
+    <Train time="6" color="RED" segments="3" />
+    <Train time="16" color="BLUE" segments="3" />
+  </Entrance>
+  <Entrance x="0" y="5">
+    <Train time="4" color="BLUE" segments="3" />
+  </Entrance>
+  <Track x="1" y="5" width="2" />
+  <Switch x="3" y="4" height="2" exit="0" />
+  <Switch x="4" y="3" height="2" exit="0" />
+  <Track x="1" y="3" width="3" />
+  <Platform x="5" y="4" color="RED" width="3" />
+  <Exit x="15" y="5" />
+  <Exit x="15" y="4" />
+  <Junction x="14" y="3" height="2" />
+  <Track x="9" y="3" width="2" />
+  <Track x="5" y="3" width="2" />
+  <Track x="7" y="3" width="2" />
+  <Track x="11" y="3" width="1" />
+  <Track x="14" y="5" width="1" />
+  <Switch x="13" y="4" height="2" exit="0" />
+  <Track x="9" y="5" width="1" />
+  <Track x="10" y="5" width="1" />
+  <Track x="11" y="5" width="1" />
+  <Track x="12" y="5" width="1" />
+  <Switch x="8" y="4" height="2" exit="0" />
+  <Track x="4" y="5" width="4" />
+  <Platform x="9" y="4" color="BLUE" width="3" />
+  <Switch x="12" y="3" height="2" exit="0" />
+  <Track x="13" y="3" width="1" />
+</Level>
