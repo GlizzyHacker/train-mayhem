@@ -4,15 +4,26 @@ import java.util.List;
 
 public class Entrance extends DotComponent implements Navigable {
     List<TrainArrival> trains;
-    int countdown;
+    int countdown = 0;
 
     Navigable next;
-    Object waiting;
+    TrainSegment waiting;
 
     public Entrance(Coordinates position, List<TrainArrival> trains) {
         super(position);
         this.trains = trains;
-        countdown = trains.isEmpty() ?0: trains.getFirst().timeOffset;
+    }
+
+    public int getCountdown() {
+        return countdown;
+    }
+
+    public List<TrainArrival> getTrains() {
+        return trains;
+    }
+
+    public TrainSegment getWaiting() {
+        return waiting;
     }
 
     @Override
@@ -41,15 +52,12 @@ public class Entrance extends DotComponent implements Navigable {
     }
 
     public void step() {
-        countdown--;
-        if (countdown <= 0 && !trains.isEmpty()){
+        countdown++;
+        if (!trains.isEmpty() && countdown >= trains.getFirst().timeOffset){
             TrainArrival arrival = trains.getFirst();
             trains.removeFirst();
-            Train newTrain = arrival.possibleTrains.getFirst();
+            Train newTrain = arrival.train;
             level.getTrains().add(newTrain);
-            if (!trains.isEmpty()){
-                countdown = trains.getFirst().timeOffset;
-            }
         }
     }
 
