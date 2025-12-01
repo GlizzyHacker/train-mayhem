@@ -29,7 +29,7 @@ class XmlLevelReaderTest {
     @BeforeEach
     void readLevel() throws IOException {
         LevelReader reader = new XmlLevelReader(file.getPath());
-        read = reader.getLevel();
+        read = reader.readLevel();
     }
 
     @Test

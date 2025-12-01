@@ -76,7 +76,7 @@ public class ComponentPicker extends JList<ComponentPicker.ComponentListItem> {
 
         items.add(new ComponentListItem("Platform", () -> {
             Integer[] possibilities = {1, 2, 3, 4, 5};
-            Object size = JOptionPane.showInputDialog(this, "Enter width", "Create platform", JOptionPane.PLAIN_MESSAGE, null, possibilities, 1);
+            Object size = JOptionPane.showInputDialog(this, "Enter width", "Create platform", JOptionPane.PLAIN_MESSAGE, null, possibilities, 3);
             if (size == null){
                 return null;
             }
@@ -93,7 +93,7 @@ public class ComponentPicker extends JList<ComponentPicker.ComponentListItem> {
 
         items.add(new ComponentListItem("Switch", () -> {
             Integer[] possibilities = {1, 2, 3, 4, 5};
-            Object size = JOptionPane.showInputDialog(this, "Enter width", "Create track", JOptionPane.PLAIN_MESSAGE, null, possibilities, 1);
+            Object size = JOptionPane.showInputDialog(this, "Enter height", "Create track", JOptionPane.PLAIN_MESSAGE, null, possibilities, 2);
             if (size == null){
                 return null;
             }
@@ -103,7 +103,7 @@ public class ComponentPicker extends JList<ComponentPicker.ComponentListItem> {
 
         items.add(new ComponentListItem("Junction", () -> {
             Integer[] possibilities = {1, 2, 3, 4, 5};
-            Object size = JOptionPane.showInputDialog(this, "Enter width", "Create track", JOptionPane.PLAIN_MESSAGE, null, possibilities, 1);
+            Object size = JOptionPane.showInputDialog(this, "Enter height", "Create track", JOptionPane.PLAIN_MESSAGE, null, possibilities, 2);
             if (size == null){
                 return null;
             }

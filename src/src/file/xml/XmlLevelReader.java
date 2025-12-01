@@ -28,7 +28,7 @@ public class XmlLevelReader implements LevelReader {
     }
 
     @Override
-    public Level getLevel() throws IOException {
+    public Level readLevel() throws IOException {
         Element root = doc.getRootElement();
         if (!root.getQualifiedName().equals("Level")){
             throw new IOException();

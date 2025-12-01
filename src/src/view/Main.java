@@ -42,7 +42,7 @@ public class Main extends javax.swing.JFrame {
                 JButton button = new JButton(fileName.split("\\.")[0]);
                 button.addActionListener(_ -> {
                     try {
-                        runLevel(reader.getLevel());
+                        runLevel(reader.readLevel());
                     } catch (IOException e) {
                         JOptionPane.showMessageDialog(this,e, "Error", JOptionPane.ERROR_MESSAGE);
                     }
@@ -79,7 +79,7 @@ public class Main extends javax.swing.JFrame {
 
         try {
             LevelReader reader = new XmlLevelReader(chooser.getSelectedFile().getPath());
-            runLevel(reader.getLevel());
+            runLevel(reader.readLevel());
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this,e, "Error", JOptionPane.ERROR_MESSAGE);
         }

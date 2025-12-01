@@ -172,7 +172,7 @@ public class LevelEditor extends javax.swing.JFrame {
                 LevelWriter writer = new XmlLevelWriter("temp");
                 writer.writeLevel(level);
                 LevelReader reader = new XmlLevelReader("temp");
-                Level levelCopy = reader.getLevel();
+                Level levelCopy = reader.readLevel();
                 levelCopy.verify();
                 LevelPlayer player = new LevelPlayer(levelCopy);
                 player.addWindowListener(new WindowBlockerListener(this));
@@ -214,6 +214,7 @@ public class LevelEditor extends javax.swing.JFrame {
     //not a perfect solution
     void reopenEditor() {
         JFrame newEditor = new LevelEditor(level);
+        newEditor.pack();
         newEditor.setVisible(true);
         newEditor.setDefaultCloseOperation(getDefaultCloseOperation());
         setVisible(false);
@@ -229,7 +230,7 @@ public class LevelEditor extends javax.swing.JFrame {
 
         try {
             LevelReader reader = new XmlLevelReader(chooser.getSelectedFile().getPath());
-            openLevel(reader.getLevel());
+            openLevel(reader.readLevel());
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this,e, "Error", JOptionPane.ERROR_MESSAGE);
         }
