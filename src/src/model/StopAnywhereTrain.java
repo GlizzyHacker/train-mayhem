@@ -9,7 +9,7 @@ public class StopAnywhereTrain extends Train {
 
     @Override
     public boolean isCompleted() {
-        return false;
+        return hasStopped;
     }
 
     @Override

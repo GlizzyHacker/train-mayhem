@@ -36,9 +36,11 @@ public abstract class Train {
             wait--;
             return;
         }
+        //only reached end when all segments reached end
+        reachedEnd = true;
         for (TrainSegment segment : segments) {
-            if (segment.move()){
-                reachedEnd = true;
+            if (!segment.move()){
+                reachedEnd = false;
             }
         }
     }

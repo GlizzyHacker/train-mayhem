@@ -14,8 +14,8 @@ public class StopAtColorTrain extends Train {
         }
         if (platform.color.equals(color)){
             stopFor(3);
+            hasStopped = true;
         }
-        hasStopped = true;
     }
 
     @Override
