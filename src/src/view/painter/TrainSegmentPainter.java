@@ -1,5 +1,6 @@
 package view.painter;
 
+import model.Colors;
 import model.TrainSegment;
 
 import java.awt.*;
@@ -23,16 +24,9 @@ public class TrainSegmentPainter extends ModelPainter<TrainSegment> {
     Point previousLocation;
     Point actualLocation;
 
-    public TrainSegmentPainter(TrainSegment segment, LevelPainter levelPainter) {
-        super(segment, levelPainter);
-        setBounds(0, 0, levelPainter.getScale(), levelPainter.getScale());
-        addMouseListener(new TrainMouseListener());
-    }
-
-    @Override
-    public void paint(Graphics g) {
+    public static Color getColorForTrain(Colors col) {
         Color color;
-        switch (component.getTrain().getColor()) {
+        switch (col) {
             case BLUE:
                 color = Color.blue;
                 break;
@@ -49,6 +43,21 @@ public class TrainSegmentPainter extends ModelPainter<TrainSegment> {
                 color = Color.black;
                 break;
         }
+        return color;
+    }
+
+    public TrainSegmentPainter(TrainSegment segment, LevelPainter levelPainter) {
+        super(segment, levelPainter);
+        setBounds(0, 0, levelPainter.getScale(), levelPainter.getScale());
+        addMouseListener(new TrainMouseListener());
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        if (component.getTrain().isReachedEnd()){
+            return;
+        }
+        Color color = getColorForTrain(component.getTrain().getColor());
         g.setColor(color);
         if (previousLocation != null) {
             drawSegment(g, 0, previousLocation.y - getLocation().y + (levelPainter.getScale() / 2), getWidth(), actualLocation.y - getLocation().y + levelPainter.getScale() / 2);
@@ -98,7 +107,10 @@ public class TrainSegmentPainter extends ModelPainter<TrainSegment> {
         polygon.addPoint(end.x - bottomY, end.y - bottomX);
         polygon.addPoint(start.x + topX, start.y + topY);
         polygon.addPoint(start.x,start.y);
+
+        if (component.isLeading()) {
+            g.setColor(g.getColor().darker());
+        }
         g.fillPolygon(polygon);
     }
-
 }
