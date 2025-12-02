@@ -1,37 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Level width="16" height="9" name="5">
-  <Platform x="4" y="2" color="RED" width="3" />
-  <Platform x="9" y="2" color="BLUE" width="3" />
-  <Platform x="4" y="4" color="GREEN" width="3" />
-  <Platform x="9" y="4" color="BLUE" width="3" />
-  <Exit x="15" y="2" />
-  <Exit x="15" y="4" />
-  <Exit x="15" y="3" />
-  <Switch x="7" y="2" height="2" exit="0" />
-  <Switch x="8" y="3" height="2" exit="0" />
-  <Track x="7" y="4" width="1" />
-  <Track x="8" y="2" width="1" />
-  <Track x="4" y="3" width="3" />
-  <Track x="12" y="2" width="3" />
-  <Track x="12" y="3" width="3" />
-  <Track x="12" y="4" width="3" />
-  <Track x="9" y="3" width="3" />
-  <Entrance x="0" y="2">
-    <Train time="9" color="BLUE" segments="3" />
-  </Entrance>
+<Level width="16" height="9" name="6">
   <Entrance x="0" y="4">
-    <Train time="4" color="BLUE" segments="3" />
-    <Train time="16" color="GREEN" segments="3" />
+    <Train time="5" color="GREEN" segments="3" />
+    <Train time="9" color="BLACK" segments="3" />
   </Entrance>
-  <Switch x="1" y="2" height="2" exit="0" />
-  <Switch x="2" y="3" height="2" exit="0" />
-  <Track x="1" y="4" width="1" />
-  <Track x="3" y="4" width="1" />
-  <Entrance x="0" y="1">
-    <Train time="5" color="RED" segments="3" />
+  <Platform x="8" y="4" color="GREEN" width="3" />
+  <Switch x="6" y="4" height="2" exit="0" />
+  <Switch x="11" y="3" height="2" exit="1" />
+  <Exit x="15" y="4" />
+  <Track x="13" y="4" width="2" />
+  <Platform x="8" y="2" color="RED" width="3" />
+  <Junction x="12" y="2" height="2" />
+  <Track x="11" y="2" width="1" />
+  <Exit x="15" y="2" />
+  <Track x="13" y="2" width="2" />
+  <Junction x="12" y="4" height="2" />
+  <Track x="7" y="5" width="5" />
+  <Track x="7" y="4" width="1" />
+  <Entrance x="0" y="2">
+    <Train time="9" color="RED" segments="3" />
   </Entrance>
-  <Track x="1" y="1" width="1" />
-  <Junction x="2" y="1" height="2" />
-  <Track x="3" y="2" width="1" />
-  <Track x="3" y="3" width="1" />
+  <Junction x="5" y="3" height="2" />
+  <Switch x="3" y="3" height="2" exit="1" />
+  <Switch x="4" y="2" height="2" exit="0" />
+  <Track x="1" y="4" width="2" />
+  <Track x="1" y="2" width="3" />
+  <Track x="5" y="2" width="3" />
+  <Track x="4" y="4" width="1" />
 </Level>
