@@ -7,7 +7,17 @@ import org.jdom2.Element;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Provides static a static method for constructing a {@link LevelComponent} from XML DOM elements
+ * For the required format see {@link file.xml.XmlLevelWriter}
+ */
 class LevelComponentFactory {
+    /**
+     * Creates a component from an element
+     * @param element The XML DOM element used to create the component.
+     * @return A subclass of LevelComponent appropriate for the given element
+     * @throws DataConversionException If the format of the element is incorrect
+     */
     static LevelComponent createLevelComponentFrom(Element element) throws DataConversionException {
         Coordinates position = getCoordinatesFrom(element);
         switch (element.getName()) {
@@ -38,18 +48,42 @@ class LevelComponentFactory {
         }
     }
 
+    /**
+     * Extracts coordinates from a DOM element
+     * @param element An element representing a LevelComponent
+     * @return A new Coordinates object
+     * @throws DataConversionException If the element doesn't contain coordinates
+     */
     private static Coordinates getCoordinatesFrom(Element element) throws DataConversionException {
         return new Coordinates(element.getAttribute("x").getIntValue(), element.getAttribute("y").getIntValue());
     }
 
+    /**
+     * Extracts width from a DOM element
+     * @param element An element representing a LevelComponent
+     * @return Width
+     * @throws DataConversionException If the element doesn't have a width
+     */
     private static int getWidthFrom(Element element) throws DataConversionException {
         return element.getAttribute("width").getIntValue();
     }
 
+    /**
+     * Extracts height from a DOM element
+     * @param element An element representing a LevelComponent
+     * @return Height
+     * @throws DataConversionException If the element doesn't have a height
+     */
     private static int getHeightFrom(Element element) throws DataConversionException {
         return element.getAttribute("height").getIntValue();
     }
 
+    /**
+     * Extracts color from a DOM element
+     * @param element An element representing a LevelComponent
+     * @return Color
+     * @throws DataConversionException If the element doesn't have a color
+     */
     private static Colors getColorFrom(Element element) throws DataConversionException {
         try {
             return Colors.valueOf(element.getAttribute("color").getValue());
@@ -59,7 +93,15 @@ class LevelComponentFactory {
         }
     }
 
-    private  static void getTrainsFrom(Element element, List<TrainArrival> trains, Entrance entrance) throws DataConversionException{
+    /**
+     * Extracts train arrivals from a DOM element's children.
+     * Populates the given list with the extracted arrivals.
+     * @param element An element representing an {@link Entrance} component
+     * @param trains The list of train arrivals that the method will fill. Doesn't delete existing items
+     * @param entrance The entrance object that the element represents
+     * @throws DataConversionException If the element doesn't have a height
+     */
+    private static void getTrainsFrom(Element element, List<TrainArrival> trains, Entrance entrance) throws DataConversionException{
         for (Element child : element.getChildren()){
             int segments = child.getAttribute("segments").getIntValue();
             Colors color = getColorFrom(child);

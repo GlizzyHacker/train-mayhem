@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * Component representing a straight track
+ */
 public class Track extends LevelComponent implements Navigable {
     final Map<Integer, TrainSegment> segmentsOnTrack = new HashMap<>();
     Navigable next;
@@ -12,10 +15,17 @@ public class Track extends LevelComponent implements Navigable {
         super(width, 1, position);
     }
 
-    public Map<Integer, TrainSegment> getObjectsOnTrack() {
+    /** This component can hold multiple segments
+     * @return The segments on track mapped to their horizontal offset from the top left corner.
+     */
+    public Map<Integer, TrainSegment> getSegmentsOnTrack() {
         return segmentsOnTrack;
     }
 
+    /** Verifies that this is not a dead end
+     * @param level The level that the component is a part of
+     * @throws ComponentConstraintException If there is no next component
+     */
     @Override
     public void verifyConstraints(Level level) throws ComponentConstraintException {
         super.verifyConstraints(level);
@@ -30,14 +40,20 @@ public class Track extends LevelComponent implements Navigable {
         }
     }
 
+    /**
+     * Navigates the segments entering and already on this component. Moves them along horizontally by one tile.
+     * @param segment The segment that navigates this object
+     * @return This if the segment remains on this track or the next component.
+     * @throws OccupiedException If a segment navigates where another segment is already at.
+     */
     @Override
-    public Navigable navigate(TrainSegment o) throws OccupiedException {
-        Optional<Map.Entry<Integer, TrainSegment>> segmentEntry = segmentsOnTrack.entrySet().stream().filter(entry -> entry.getValue().equals(o)).findFirst();
+    public Navigable navigate(TrainSegment segment) throws OccupiedException {
+        Optional<Map.Entry<Integer, TrainSegment>> segmentEntry = segmentsOnTrack.entrySet().stream().filter(entry -> entry.getValue().equals(segment)).findFirst();
 
         int nextIndex = segmentEntry.isPresent() ? segmentEntry.get().getKey() + 1 : 0;
         if (nextIndex >= width) {
             segmentsOnTrack.remove(Math.max(nextIndex - 1, 0));
-            next.navigate(o);
+            next.navigate(segment);
             return next;
         }
         if (segmentsOnTrack.containsKey(nextIndex)) {
@@ -45,7 +61,7 @@ public class Track extends LevelComponent implements Navigable {
         }
         //nextIndex might be 0
         segmentsOnTrack.remove(Math.max(nextIndex - 1, 0));
-        segmentsOnTrack.put(nextIndex, o);
+        segmentsOnTrack.put(nextIndex, segment);
         return this;
     }
 

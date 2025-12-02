@@ -1,11 +1,21 @@
 package model;
 
+/**
+ * Component of a {@link Level}
+ * This is an abstract class. Subclasses inherit from this to provide unique behaviour
+ */
 public abstract class LevelComponent {
     protected final int width;
     protected final int height;
     protected final Coordinates position;
     protected Level level;
 
+    /**
+     * Creates a new component
+     * @param width The width of the component
+     * @param height The height of the component
+     * @param position The coordinates where the top left corner of the component is
+     */
     LevelComponent(int width, int height, Coordinates position){
         this.width = width;
         this.height = height;
@@ -24,6 +34,13 @@ public abstract class LevelComponent {
         return position;
     }
 
+    /**
+     * Components may have specific requirement that depend on other components near them.
+     * This method allows a level to make sure all the components inside them have their constraints met.
+     * By default, all components must fit in the level
+     * @param level The level that the component is a part of
+     * @throws ComponentConstraintException If a constraint is violated
+     */
     public void verifyConstraints(Level level) throws ComponentConstraintException {
         this.level = level;
 
@@ -44,5 +61,8 @@ public abstract class LevelComponent {
         }
     }
 
+    /** Every subclass has to implement this and visit the visitor with themselves as their subclass
+     * @param visitor The visitor to visit
+     */
     public abstract void accept(Visitor visitor);
 }

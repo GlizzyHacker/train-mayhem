@@ -3,6 +3,10 @@ package view.painter;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Superclass for drawing a {@link model.LevelComponent} or a {@link model.TrainSegment} with low level graphics
+ * @param <T>
+ */
 public abstract class ModelPainter<T> extends JComponent {
     T component;
     LevelPainter levelPainter;

@@ -1,5 +1,6 @@
 package file.xml;
 
+import file.LevelReader;
 import file.LevelWriter;
 import model.Level;
 import model.LevelComponent;
@@ -12,16 +13,28 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class XmlLevelWriter implements LevelWriter {
+/**
+ * Implementation of the {@link LevelWriter} interface that writes to an XML file
+ */
+public class XmlLevelWriter extends LevelComponentMarshaller implements LevelWriter {
     Document doc;
     File file;
 
+    /**
+     * Creates a writer associated with an XML file
+     * @param path Path to the XML file, if a file doesn't exist there a new one will be created
+     * @throws IOException If a new file cannot be created
+     */
     public XmlLevelWriter(String path) throws IOException {
         file = new File(path);
         file.createNewFile();
         doc = new Document();
     }
 
+    /** Writes a level to the XML file
+     * @param level The level to write
+     * @throws IOException if the file cannot be written into
+     */
     @Override
     public void writeLevel(Level level) throws IOException {
         Element root = new Element("Level");

@@ -6,11 +6,20 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A panel that displays general information about a selected component
+ */
 public class SelectionPanel extends JPanel {
+    /**
+     * An enum that lists all the possible actions a user can do with a selected component
+     */
     public enum SelectionAction {
         MODIFIED, DELETED
     }
 
+    /**
+     * A listener for selection actions
+     */
     public interface SelectionActionListener {
         void onAction(SelectionAction action);
     }
@@ -24,6 +33,9 @@ public class SelectionPanel extends JPanel {
 
     List<SelectionActionListener> listeners = new ArrayList<>();
 
+    /**
+     * Creates a panel with no component selected
+     */
     public SelectionPanel() {
         super();
 
@@ -41,6 +53,10 @@ public class SelectionPanel extends JPanel {
         add(specifics);
     }
 
+    /**
+     * Changes the selected component and updates all the labels to show information about the selected component
+     * @param selected The new selected component
+     */
     public void setSelected(LevelComponent selected) {
         this.selected = selected;
         if (selected == null) {

@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
 
+/**
+ * Main menu
+ */
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main extends javax.swing.JFrame {
@@ -28,7 +31,7 @@ public class Main extends javax.swing.JFrame {
         setLayout(new BorderLayout());
 
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(1,8));
+        panel.setLayout(new GridLayout(2,4));
 
         URL resource = this.getClass().getResource("/levels");
         if (resource == null) {
@@ -38,7 +41,7 @@ public class Main extends javax.swing.JFrame {
         for (String fileName : file.list()) {
             try {
                 LevelReader reader = new XmlLevelReader(file.getPath() + "\\" + fileName);
-                //remove extension
+                //remove file extension
                 JButton button = new JButton(fileName.split("\\.")[0]);
                 button.addActionListener(_ -> {
                     try {
@@ -70,6 +73,9 @@ public class Main extends javax.swing.JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
+    /**
+     * Shows a file chooser dialog and runs the level in the file
+     */
     void playFromFile(){
         JFileChooser chooser = new JFileChooser();
         chooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
@@ -85,6 +91,11 @@ public class Main extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Verifies and runs a level.
+     * Blocks the main menu while the player is open.
+     * @param level Level to run
+     */
     void runLevel(Level level) {
         try {
             level.verify();
@@ -98,6 +109,9 @@ public class Main extends javax.swing.JFrame {
         player.setVisible(true);
     }
 
+    /**
+     * Opens the editor
+     */
     void editor(){
         LevelEditor editor = new LevelEditor(new Level("New level", 10, 10, new LinkedList<>()));
         editor.pack();

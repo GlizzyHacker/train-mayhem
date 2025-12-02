@@ -11,7 +11,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Responsible for showing a level with low level graphics
+ * Implements the visitor component to create the appropriate component painter
+ */
 public class LevelPainter extends JPanel implements Visitor {
+    /**
+     * Listener for selecting a position on the level
+     */
     class LevelPainterMouseListener extends MouseAdapter{
         //If this is called it means no component captured the mouse event
         @Override
@@ -22,6 +29,7 @@ public class LevelPainter extends JPanel implements Visitor {
             }
         }
     }
+
     private final Level level;
     private boolean gridVisible;
     private LevelComponent highlighted;
@@ -30,7 +38,6 @@ public class LevelPainter extends JPanel implements Visitor {
 
     private int scale = 40;
     private final Map<TrainSegment, TrainSegmentPainter> segmentPainters = new HashMap<>();
-
 
     public LevelPainter(Level level) {
         this.level = level;
@@ -47,6 +54,8 @@ public class LevelPainter extends JPanel implements Visitor {
         return scale;
     }
 
+    /** Sets whether the grid of positions is painted
+     */
     public void setGridVisible(boolean val) {
         gridVisible = val;
         repaint();
@@ -56,15 +65,27 @@ public class LevelPainter extends JPanel implements Visitor {
         return allowInteract;
     }
 
+    /**
+     * Sets whether components listen to mouse events
+     */
     public void setAllowInteract(boolean val){
         allowInteract = val;
     }
 
+    /**
+     * Sets the component to be highlighted with a red box
+     * @param component Null if no component is highlighted
+     */
     public void setHighlighted(LevelComponent component){
         highlighted = component;
         repaint();
     }
 
+    /**
+     * Allows component painters to tell the level painter where train segments are
+     * @param segment The segment
+     * @param coordinates The location of the segment
+     */
     public void addSegmentPositition(TrainSegment segment, Coordinates coordinates) {
         if (!segmentPainters.containsKey(segment)) {
             TrainSegmentPainter segmentPainter = new TrainSegmentPainter(segment, this);
@@ -80,6 +101,9 @@ public class LevelPainter extends JPanel implements Visitor {
         listeners.add(listener);
     }
 
+    /**
+     * Creates a painter for the component
+     */
     public void addComponent(LevelComponent component){
         component.accept(this);
         repaint();
@@ -96,11 +120,19 @@ public class LevelPainter extends JPanel implements Visitor {
         repaint();
     }
 
+    /**
+     * Add the component painter as a child and listens for selection
+     */
     void addComponentPainter(ComponentPainter<?> painter) {
         painter.addSelectionListener(event -> listeners.forEach(l -> l.sendSelected(event)));
         this.add(painter);
     }
 
+    /**
+     * Recalculates the scale based on the height and width to allow resizing
+     * Paints a grid if enabled
+     * Paints a highlight if enabled
+     */
     @Override
     public void paint(Graphics g) {
         //DYNAMIC RESIZE

@@ -3,9 +3,18 @@ package file.xml;
 import model.*;
 import org.jdom2.Element;
 
+/**
+ * Provides a static method for creating XML DOM elements from {@link LevelComponent}
+ * Implements {@link Visitor} to give class specific behaviour to each component and to give compile time coverage guarantee.
+ */
 public class LevelComponentMarshaller implements Visitor {
     private Element result;
 
+    /**
+     * Creates an XML DOM element from a component
+     * @param component the component to represent in the DOM
+     * @return the DOM element representing the component
+     */
     public static Element elementFrom(LevelComponent component) {
         LevelComponentMarshaller marshaller = new LevelComponentMarshaller();
         component.accept(marshaller);

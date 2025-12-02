@@ -9,6 +9,9 @@ public class ExitComponent  extends ComponentPainter<Exit> {
         super(component, levelPainter);
     }
 
+    /**
+     * Draws a track
+     */
     @Override
     public void paint(Graphics g) {
         super.paint(g);

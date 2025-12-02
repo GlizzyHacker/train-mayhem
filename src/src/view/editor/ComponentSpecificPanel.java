@@ -7,7 +7,14 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumn;
 import java.awt.*;
 
+/**
+ * A panel that shows information specific to a type of {@link LevelComponent}
+ * To achieve this it implements the Visitor interface
+ */
 public class ComponentSpecificPanel extends JPanel implements Visitor {
+    /**
+     * A table model showing train arrivals of an {@link Entrance}
+     */
     class TrainArrivalTableModel extends AbstractTableModel{
         Entrance entrance;
 
@@ -107,13 +114,23 @@ public class ComponentSpecificPanel extends JPanel implements Visitor {
 
     Component child;
 
+    /**
+     * Creates an empty panel
+     */
     public ComponentSpecificPanel(){
     }
 
+    /**
+     * Creates a panel
+     * @param levelComponent The component to create the panel for
+     */
     public ComponentSpecificPanel(LevelComponent levelComponent){
         setLevelComponent(levelComponent);
     }
 
+    /** Clears the panel and shows another components' specifics
+     * @param levelComponent The new component to show
+     */
     public void setLevelComponent(LevelComponent levelComponent) {
         if (child != null) {
             remove(child);
@@ -128,6 +145,8 @@ public class ComponentSpecificPanel extends JPanel implements Visitor {
         }
     }
 
+    /** Creates a table and buttons to edit, add and remove train arrivals
+     */
     @Override
     public void visit(Entrance component) {
         JPanel panel = new JPanel();
@@ -164,6 +183,8 @@ public class ComponentSpecificPanel extends JPanel implements Visitor {
     public void visit(Platform component) {
     }
 
+    /** Creates a combobox to select the default exit
+     */
     @Override
     public void visit(Switch component) {
         JComboBox<Integer> combo = new JComboBox<>();

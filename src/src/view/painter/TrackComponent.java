@@ -11,11 +11,14 @@ public class TrackComponent extends ComponentPainter<Track> {
         super(component, levelPainter);
     }
 
+    /**
+     * Draws a track
+     */
     @Override
     public void paint(Graphics g) {
         super.paint(g);
         drawTrack(g, 0, levelPainter.getScale()/2, getWidth(), levelPainter.getScale()/2);
-        for (Map.Entry<Integer, TrainSegment> entry : component.getObjectsOnTrack().entrySet()) {
+        for (Map.Entry<Integer, TrainSegment> entry : component.getSegmentsOnTrack().entrySet()) {
             levelPainter.addSegmentPositition(entry.getValue(), component.getTopLeftCorner().transform(entry.getKey(),0));
         }
     }

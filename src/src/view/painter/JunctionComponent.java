@@ -8,12 +8,19 @@ public class JunctionComponent extends ComponentPainter<Junction> {
     int exitY;
     boolean[] entrances;
 
+    /**
+     * @param exitY The vertical offset of the exit compared to the junction's location
+     * @param entrances List as long as the junction's height where the i. value is true if there is an entrance at the i vertical offset compared to the junction's location
+     */
     public JunctionComponent(Junction component, LevelPainter levelPainter, int exitY, boolean[] entrances) {
         super(component, levelPainter);
         this.exitY = exitY;
         this.entrances = entrances;
     }
 
+    /**
+     * Draws a track between every entrance and the exit
+     */
     @Override
     public void paint(Graphics g) {
         super.paint(g);

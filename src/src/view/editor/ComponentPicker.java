@@ -9,7 +9,14 @@ import java.awt.event.MouseEvent;
 import java.util.*;
 import java.util.function.Supplier;
 
+/**
+ * List for picking a component to place
+ */
 public class ComponentPicker extends JList<ComponentPicker.ComponentListItem> {
+    /**
+     * Mouse listener that selects the item based on the click and clears the selection afterward
+     * This is necessary to be able to select the same item twice
+     */
     class ListMouseListener extends MouseAdapter {
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -23,15 +30,29 @@ public class ComponentPicker extends JList<ComponentPicker.ComponentListItem> {
 
     }
 
+    /**
+     * This is necessary because component positions are final, so creating a component and then changing its position is not an option
+     */
     public interface ComponentPlacer {
+        /** Creates the component at the given position
+         * @param position The positon where the components top left corner will be
+         * @return The new component at the position
+         */
         LevelComponent place(Coordinates position);
     }
 
+    /**
+     *  List item to create a component
+     */
     class ComponentListItem {
         String name;
-        //HACK: CHANGE ASAP
+        //Doesn't look that good
         Supplier<?> selectCallback;
 
+        /**
+         * @param name A readable name that the toString method and the UI uses
+         * @param selectCallback A lambda that handles the component creation after selecting this item
+         */
         public ComponentListItem(String name, Supplier<?> selectCallback) {
             this.name = name;
             this.selectCallback = selectCallback;
@@ -43,6 +64,10 @@ public class ComponentPicker extends JList<ComponentPicker.ComponentListItem> {
         }
     }
 
+    /**
+     * Interface for listening for component place events
+     * Used by this class to let listeners know when the user wants to place a component from this list
+     */
     public interface PlaceComponentListener {
         void sendPlacer(ComponentPlacer placer);
     }
@@ -51,6 +76,10 @@ public class ComponentPicker extends JList<ComponentPicker.ComponentListItem> {
 
     List<PlaceComponentListener> listeners = new LinkedList<>();
 
+    /**
+     * Creates the list and fills it with components that can be placed
+     * Some components require more than just their location to create. For these inputs dialogs are shown.
+     */
     public ComponentPicker() {
         items.add(new ComponentListItem("Entrance", () -> {
             List<TrainArrival> trains = new LinkedList<>();
@@ -118,6 +147,9 @@ public class ComponentPicker extends JList<ComponentPicker.ComponentListItem> {
         listeners.add(listener);
     }
 
+    /**
+     * Helper method for notifying every listener
+     */
     void notifyListeners(ComponentPlacer placer) {
         for (PlaceComponentListener listener : listeners) {
             listener.sendPlacer(placer);

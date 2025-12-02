@@ -28,6 +28,10 @@ public class LevelEditor extends javax.swing.JFrame {
 
     ComponentPicker.ComponentPlacer componentToPlace;
 
+    /**
+     * Creates the level editor with a level
+     * @param level The edited level
+     */
     public LevelEditor(Level level) {
         this.setLayout(new GridBagLayout());
         this.level = level;
@@ -133,6 +137,11 @@ public class LevelEditor extends javax.swing.JFrame {
         this.add(new JScrollPane(picker), pickerConstraint);
     }
 
+    /**
+     * Opens another level in the editor
+     * Changes to the previous level are not changed
+     * @param newLevel The new level to open
+     */
     public void openLevel(Level newLevel) {
         if (0 == JOptionPane.showConfirmDialog(this, "Any unsaved changes will be lost", "Changes", JOptionPane.YES_NO_OPTION)) {
             level = newLevel;
@@ -140,18 +149,31 @@ public class LevelEditor extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Starts placing mode
+     * @param placer The placer used to create the level
+     */
     void placeComponent(ComponentPicker.ComponentPlacer placer) {
         componentToPlace = placer;
         bottomLabel.setText("Placing");
         repaint();
     }
 
+    /**
+     * Selects a component
+     * Shows details about the component in the selection panel and highlight it
+     * @param component The component to be selected
+     */
     void selectComponent(LevelComponent component) {
         selected = component;
         toolbar.setSelected(selected);
         levelPainter.setHighlighted(component);
     }
 
+    /**
+     * Verifies the level
+     * @return True if the level is successfully verified
+     */
     boolean verifyLevel() {
         try {
             level.verify();
@@ -165,6 +187,9 @@ public class LevelEditor extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Verifies then runs the level
+     */
     void runLevel() {
         //write to temporary file and read to deep copy level
         if (verifyLevel()) {
@@ -188,6 +213,10 @@ public class LevelEditor extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Resizes the current level.
+     * Uses dialogs to get the new width and height from the user
+     */
     void resizeLevel() {
         try {
             int width = Integer.parseInt((String) JOptionPane.showInputDialog(this, "Enter width", "Resize", JOptionPane.PLAIN_MESSAGE, null, null, level.getWidth()));
@@ -210,8 +239,10 @@ public class LevelEditor extends javax.swing.JFrame {
         }
     }
 
-    //because levels are immutable if you want to modify the level you have to create a new one, but LevelPainter cant handle that so the whole frame has to be recreated
-    //not a perfect solution
+    /**
+     * Reopens the editor
+     * This is needed to switch or resize levels because level painter can't handle changing levels.
+     */
     void reopenEditor() {
         JFrame newEditor = new LevelEditor(level);
         newEditor.pack();
@@ -220,6 +251,9 @@ public class LevelEditor extends javax.swing.JFrame {
         setVisible(false);
     }
 
+    /**
+     * Shows a file chooser dialog and loads the selected file as a level
+     */
     void importLevel() {
         //get file
         JFileChooser chooser = new JFileChooser();
@@ -236,6 +270,9 @@ public class LevelEditor extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Shows a file chooser dialog and exports the level into that file as XML
+     */
     void exportLevel() {
         JFileChooser chooser = new JFileChooser();
         chooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
