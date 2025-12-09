@@ -38,12 +38,6 @@ public class LevelPlayer extends JFrame {
 
         this.setLayout(new BorderLayout());
         setTitle(level.getName());
-        JButton button = new JButton("Step");
-        this.add(button, BorderLayout.NORTH);
-        button.addActionListener(e -> {
-            this.repaint();
-            sim.step();
-        });
 
         this.add(new LevelPainter(level), BorderLayout.CENTER);
         if (0 == JOptionPane.showConfirmDialog(this, "Begin level " + level.getName(), "Play", JOptionPane.OK_CANCEL_OPTION)) {
