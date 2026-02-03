@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.LinkedList;
 
@@ -33,29 +34,6 @@ public class Main extends javax.swing.JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(2,4));
 
-        URL resource = this.getClass().getResource("/levels");
-        if (resource == null) {
-            return;
-        }
-        File file = new File(resource.getFile());
-        for (String fileName : file.list()) {
-            try {
-                LevelReader reader = new XmlLevelReader(file.getPath() + "\\" + fileName);
-                //remove file extension
-                JButton button = new JButton(fileName.split("\\.")[0]);
-                button.addActionListener(_ -> {
-                    try {
-                        runLevel(reader.readLevel());
-                    } catch (IOException e) {
-                        JOptionPane.showMessageDialog(this,e, "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                });
-            panel.add(button);
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(this,e, "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-
         add(panel, BorderLayout.CENTER);
 
         JPanel sidePanel = new JPanel();
@@ -71,6 +49,30 @@ public class Main extends javax.swing.JFrame {
         sidePanel.add(editorButton);
         add(sidePanel, BorderLayout.EAST);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        int i = 1;
+        InputStream resource = this.getClass().getResourceAsStream("/levels/"+i+".xml");
+        while (resource != null) {
+
+            try {
+                LevelReader reader = new XmlLevelReader(resource);
+                JButton button = new JButton(reader.readLevel().getName());
+                button.addActionListener(_ -> {
+                    try {
+                        runLevel(reader.readLevel());
+                    } catch (IOException e) {
+                        JOptionPane.showMessageDialog(this,e, "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                });
+            panel.add(button);
+                resource.close();
+                i++;
+                resource = this.getClass().getResourceAsStream("/levels/"+i+".xml");
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(this,e, "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+            }
+        }
     }
 
     /**
