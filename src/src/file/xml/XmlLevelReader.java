@@ -11,6 +11,7 @@ import org.jdom2.input.SAXBuilder;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,6 +32,20 @@ public class XmlLevelReader implements LevelReader {
         File f = new File(path);
         try {
             doc = b.build(f);
+        } catch (JDOMException e) {
+            throw new IOException(e);
+        }
+    }
+
+    /**
+     * Creates a reader associated with an Input stream
+     * @param stream The Input stream containing the XML
+     * @throws IOException If there is a problem building the XML document
+     */
+    public XmlLevelReader(InputStream stream) throws IOException {
+        SAXBuilder b = new SAXBuilder();
+        try {
+            doc = b.build(stream);
         } catch (JDOMException e) {
             throw new IOException(e);
         }

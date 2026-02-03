@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Level width="16" height="9" name="7">
+<Level width="16" height="9" name="6">
   <Platform x="7" y="2" color="RED" width="3" />
   <Platform x="7" y="6" color="BLUE" width="3" />
   <Platform x="7" y="4" color="GREEN" width="3" />
