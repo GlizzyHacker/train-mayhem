@@ -7,6 +7,10 @@ Uses JDK 22
 
 <img width="2559" height="1388" alt="image" src="https://github.com/user-attachments/assets/1671e72d-54d0-45d9-be41-71e240d4dc5c" />
 
+## Download
+
+To play the game download the latest release and run the jar file. Make sure you have a Java runtime enviroment installed.
+
 ## Dependencies:
 - JUnit version 5.8.1 for testing 
 - JDOM version 2.0.6.1 for XML manipulation
